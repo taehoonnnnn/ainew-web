@@ -96,7 +96,9 @@ loding.config(text = '음성 생성 완료')
 
 ### 최근결과물
 - 최근에 작업한 결과물을 4개까지 저장한다.
-- "./save/video" 확인.
+```sh
+./save/video
+```
 
 
 라이센스 인용

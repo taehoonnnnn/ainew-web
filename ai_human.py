@@ -5,13 +5,15 @@ from tkinter.tix import COLUMN
 import cv2, av, os, wave, subprocess, datetime, shutil, wave, librosa, librosa.display 
 import matplotlib.pyplot as plt
 
+
 # 설정
 bg = '#2c3e50'
 bnbg = '#2f3640'
 fg = 'white'
 
 
-def get_extract_video_information(filename): # 비디오 정보 추출
+# -- 비디오 정보 추출 --
+def get_extract_video_information(filename):
     container = av.open(filename)
     video = container.streams.video[0]
     frames = container.decode(video=0)
@@ -33,7 +35,8 @@ def set_video_main_picture(path, name):
     vidcap.release()
 
 
-def get_video_file(): # 비디오 파일 열기
+ # -- 비디오 파일 열기 --
+def get_video_file():
     global video_file_path
     video_file_path = filedialog.askopenfilename(initialdir='', title='동영상 파일선택', filetypes=(
     ('mp4 files', '*.mp4'), ('avi files', '*.avi'), ('all files', '*.*')))
@@ -48,9 +51,10 @@ def get_video_file(): # 비디오 파일 열기
         video_img_label.configure(image=img_change)
     except:
         messagebox.showinfo("오류", "오류")
-    
-    
-def get_extract_audio_information(filename): # 오디오 정보 추출
+
+
+# -- 오디오 정보 추출 --
+def get_extract_audio_information(filename):
     audio = wave.open(filename)
     frames = audio.getnframes()
     rate = audio.getframerate()
@@ -66,8 +70,9 @@ def set_audio_spectrum_image(path, name):
     librosa.display.waveshow(sig, sr, color='white', alpha=1)
     plt.savefig(f'./image/{name}.png', facecolor=bg, pad_inches=0)
     
-    
-def get_audio_file(): # 오디오 파일 열기
+
+# -- 오디오 파일 열기 --
+def get_audio_file():
     global audio_file_path
     audio_file_path = filedialog.askopenfilename(initialdir='', title='동영상 파일선택', filetypes=(
     ('wav files', '*.wav'), ('mp3 files', '*.mp3'), ('all files', '*.*')))
@@ -82,12 +87,14 @@ def get_audio_file(): # 오디오 파일 열기
     except:
         messagebox.showinfo("오류", "파일을 선택해주세요.")
 
+
 # -- 최종 AI 모델 저장 경로 --
 def get_final_aimodel_path():
     global ai_path
     ai_path = filedialog.askdirectory()
     print(ai_path)
     savefile_path_label.config(text=ai_path)
+
 
 # -- 쓰레드 --
 def therading_final_ai():
@@ -109,9 +116,9 @@ def model_synth():
         print(cmd)
         subprocess.run(cmd)
  
-        status_message_label.config(text='최근작업 저장중...')   
+        status_message_label.config(text='최근작업 저장중...')
         
-        # -- 이미지 복사 --
+        # -- 최근 결과물 이미지 복사 --
         path_dir = './save'
         filecnt = os.listdir(path_dir)[:4]
         
@@ -146,7 +153,7 @@ def model_synth():
                 dst = os.path.join(path_dir, dst)
                 os.rename(src, dst)
         
-        # -- 영상 복사 --
+        # -- 최근 결과물 동영상 복사 --
         video_path_dir = './save/video/'
         videocnt = os.listdir(video_path_dir)
         
@@ -210,8 +217,8 @@ def model_synth():
         status_message_label.config(text='파일 생성 오류')
 
 
-
-def tk_ai_human(win, mainfont2):  # AI_HUMAN
+# -- tkinter AI_HUMAN --
+def tk_ai_human(win, mainfont2):
 
     tk_window = Toplevel(win)
     tk_window.geometry('1450x770')
@@ -231,7 +238,8 @@ def tk_ai_human(win, mainfont2):  # AI_HUMAN
     main_right_labelframe = LabelFrame(main_labelframe, bg=bg, relief='flat',width=800, height=150)
     main_right_labelframe.pack(fill='both', expand=True, side='right')
 
-    # 동영상 프레임
+
+    # -- 동영상 프레임 --
     video_main_labelframe = LabelFrame(main_left_labelframe, bg=bg, text='동영상', relief='groove', width=500, height=150, font=mainfont2, fg='white')
     video_main_labelframe.pack(fill='both', expand=False) # 메인프레임
 
@@ -263,7 +271,7 @@ def tk_ai_human(win, mainfont2):  # AI_HUMAN
     video_img_label.pack(anchor='center', pady=10) # **** 이미지에 따른 위치 수정 필요( 파일크기 확인하세요 )
 
 
-    # 오디오 프레임
+    # -- 오디오 프레임 --
     audio_main_frame = LabelFrame(main_left_labelframe, bg=bg, text='오디오', relief='groove',width=500, height=450, font=mainfont2, fg='white') # 메인 프레임
     audio_main_frame.pack(fill='both', expand=False)
 
@@ -320,12 +328,14 @@ def tk_ai_human(win, mainfont2):  # AI_HUMAN
     savefile_name_edit_entry = Entry(work_progress_right_labelframe, width = 30)
     savefile_name_edit_entry.grid(row=1, column=0, padx=5, pady=3, columnspan=6, sticky='NEWS') # 저장파일이름
 
-    # 최근결과물
+
+    # -- 최근결과물 --
+    global beforefile_img_frame
+
     beforefile_labelframe = LabelFrame(main_right_labelframe, bg=bg, text='최근결과물', relief='groove',
                             width=500, height=20, font=mainfont2, fg='white')
     beforefile_labelframe.pack(fill='both', expand=True) # DB 작업 이후에 만들 것(DB에서 데이터 가져와야함)
     
-    global beforefile_img_frame
     beforefile_img_frame = Frame(beforefile_labelframe, bg=bg, width=150, height=550)
     beforefile_img_frame.pack(side='left', expand=True)
 
@@ -333,8 +343,9 @@ def tk_ai_human(win, mainfont2):  # AI_HUMAN
     beforefile_text_frame.pack(side='right', expand=True)
 
 
+    # -- 최근 이미지 파일 --
     global beforefile_img_label_1, beforefile_img_label_2, beforefile_img_label_3, beforefile_img_label_4
-    # 최근 이미지 파일
+
     beforefile_img_data_photoimage = PhotoImage(file='./save/1.png', master=beforefile_img_frame)
     beforefile_img_label_1 = Label(beforefile_img_frame, bg=bg, pady=50, padx=60, image=beforefile_img_data_photoimage)
     beforefile_img_label_1.image = beforefile_img_data_photoimage
@@ -347,13 +358,11 @@ def tk_ai_human(win, mainfont2):  # AI_HUMAN
     beforefile_img_label_2.grid(row=2, column=0)
     Label(beforefile_img_frame, bg=bg, pady=3).grid(row=3)
     
-    
     beforefile_img_data_photoimage = PhotoImage(file='./save/3.png', master=beforefile_img_frame)
     beforefile_img_label_3 = Label(beforefile_img_frame, bg=bg, pady=50, padx=60, image=beforefile_img_data_photoimage)
     beforefile_img_label_3.image = beforefile_img_data_photoimage
     beforefile_img_label_3.grid(row=4, column=0)
     Label(beforefile_img_frame, bg=bg, pady=3).grid(row=5)
-    
     
     beforefile_img_data_photoimage = PhotoImage(file='./save/4.png', master=beforefile_img_frame)
     beforefile_img_label_4 = Label(beforefile_img_frame, bg=bg, pady=50, padx=60, image=beforefile_img_data_photoimage)
@@ -361,10 +370,10 @@ def tk_ai_human(win, mainfont2):  # AI_HUMAN
     beforefile_img_label_4.grid(row=6, column=0)
 
 
+    # -- 최근 저장경로 및 파일 이름 // 저장 날짜 --
     global beforefile_path_label_1, beforefile_path_label_2, beforefile_path_label_3, beforefile_path_label_4
     global beforefile_time_label_1, beforefile_time_label_2, beforefile_time_label_3, beforefile_time_label_4
 
-    # 최근 저장경로 및 파일 이름 // 저장 날짜
     beforefile_path_dir = os.getcwd()
     beforefile_path = './save/video/'
     beforefile_path_listdir = os.listdir(beforefile_path)

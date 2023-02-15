@@ -47,7 +47,7 @@ def tk_ainewtool():
     load_ai_human_btn = Button(select_btn_labelframe, bg=bnbg, text='Start AI_Human', fg='white',
                     width=25, height=2, font=btn_font, relief='flat', command=lambda:ai_human.tk_ai_human(ainewtool_window, mainfont2)).pack(pady=12)
     load_tts_model_btn = Button(select_btn_labelframe, bg=bnbg, text='Start TTS Model', fg='white',
-                    width=25, height=2, font=btn_font, relief='flat', command=lambda:tts.tts_program(ainewtool_window, mainfont2, mainfont, k_font, text_font)).pack(pady=12)
+                    width=25, height=2, font=btn_font, relief='flat', command=lambda:tts.tk_tts_program(ainewtool_window, mainfont2, mainfont, k_font, text_font)).pack(pady=12)
     load_ai_human_train_btn = Button(select_btn_labelframe, bg=bnbg, text='준비중', fg='white', 
                     width=25, height=2, font=btn_font, relief='flat').pack(pady=12)
     # btn_train = Button(btn_frame, bg=bnbg, text='Start AI_Human Train', fg='white', width=25, height=2, font=btn_font, relief='flat', command=lambda:ai_human_train.train_win(win, mainfont2, k_font, btn2_font, null_font)).pack(pady=12)

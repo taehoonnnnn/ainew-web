@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>BTF-Tech TTS Create Program</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='sign_dir/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='sign_dir/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='sign_dir/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='sign_dir/css/style.css') }}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+
+
+        <div class="container-fluid">
+            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+                    <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>BTF</h3>
+                            <h3>Login</h3>
+                        </div>
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="id">
+                                    <label for="floatingInput">ID</label>
+                                </div>
+                                <div class="form-floating mb-4">
+                                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pw">
+                                    <label for="floatingPassword">Password</label>
+                                </div>
+
+                                    <button type="submit" class="btn btn-primary py-3 w-100 mb-4" id="btn_login">로그인</button>
+                                <p class="text-center mb-0">로그인 문제시 관리자 문의</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Sign In End -->
+    </div>
+    <script>
+        $('#btn_login').click(function(){
+
+            var id = $('#floatingInput').val();
+            var pw = $('#floatingPassword').val();
+            var list = {
+                "id":id, "pw":pw
+            }
+
+            $.ajax({
+                type : "post",
+                url : "/login",
+                data : list,
+                success: function(result){
+                    if (result == "1") {
+                        location.href = '/main';
+                    }else{
+                        alert("로그인 정보를 확인해주세요.");
+                    }
+                        
+                },
+                error: function(xtr, status, error){
+                    alert("잘못된 접근입니다.");
+                }
+            })
+
+        })
+
+
+
+    </script>
+
+    <script src="{{ url_for('static', filename='/sign_dir/lib/chart/chart.min.js') }}" > </script>
+    <script src="{{ url_for('static', filename='/sign_dir/lib/easing/easing.min.js') }}" > </script>
+    <script src="{{ url_for('static', filename='/sign_dir/lib/waypoints/waypoints.min.js') }}" > </script>
+    <script src="{{ url_for('static', filename='/sign_dir/lib/owlcarousel/owl.carousel.min.js') }}" > </script>
+    <script src="{{ url_for('static', filename='/sign_dir/lib/tempusdominus/js/moment.min.js') }}" > </script>
+    <script src="{{ url_for('static', filename='/sign_dir/lib/tempusdominus/js/moment-timezone.min.js') }}" > </script>
+    <script src="{{ url_for('static', filename='/sign_dir/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}" > </script>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Template Javascript -->
+    <script src="{{ url_for('static', filename='/sign_dir/js/main.js') }}" > </script>
+
+
+</body>
+
+</html>

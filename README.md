@@ -26,19 +26,27 @@ pip install requirements.txt
 ../audio_create/model/(you_file)
 ```
 ```sh
-tts_model.py
+# 단일화자
+# if model_sel == 'AI_황이화':
+#     models = 'model_1'
+# elif model_sel == 'AI_추민선':
+#     models = 'model_2'
 
-if model_sel == 'AI_황이화':
-            models = '1'
-        elif model_sel == 'AI_추민선':
-            models = '0'
-        print(models)
-        
-        for i in tts_text:
-            # 단일화자
-            # cmd = f'python audio_create/synthesizer.py --load_path audio_create/model/(you_file) --sample_path sample --text "{i}"'
-            # 다중화자
-            cmd = f'python audio_create/synthesizer.py --load_path audio_create/model/(you_file) --num_speaker 2 --speaker_id {models} --sample_path sample --text "{i}"'
+# 다중화자
+if model_select == 'AI_황이화':
+    models = '1'
+elif model_select == 'AI_추민선':
+    models = '0'
+print(model_select) # 선택한 모델 확인
+
+tts_create_cnt = 1 # 진행률 표시용
+for i in tts_model_execution_list:
+    # 단일화자
+    # cmd = f'python audio_create/synthesizer.py --load_path audio_create/model/{models} --sample_path sample --text "{i}"'
+    # 다중화자
+    cmd = f'python audio_create/synthesizer.py --load_path audio_create/model/1and2 --num_speaker 2 --speaker_id {models} --sample_path sample --text "{i}"'
+    
+    subprocess.run(cmd)
 ```
 ### 대본 불러오기
 - 수정할 .text 파일을 "대본입력" 프레임에 불러온다.
@@ -65,7 +73,7 @@ for i in range(len(filecnt)):
 
 audio_list = np.concatenate((audio_list), axis=0)
 
-name = file_name.get('1.0', 'end-1c')
+name = file_name_input_text.get('1.0', 'end-1c')
 print(name)
 
 sf.write(f'./TTSOUT/audio/{name}.wav', audio_list, sample_rate)
@@ -75,7 +83,7 @@ sf.write(f'./TTSOUT/audio/{name}.wav', audio_list, sample_rate)
 [os.remove(f) for f in glob.glob('./sample/*.wav')]
 
 print("오디오 생성완료")
-loding.config(text = '음성 생성 완료')
+loding_label.config(text = '음성 생성 완료')
 ```
 ### 강제종료
 - 생성중인 모델을 강제로 종료한다.

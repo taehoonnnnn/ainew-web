@@ -1,7 +1,6 @@
 # AINEWROOM WEB VERSION
-### Tacotron2 모델과 wav2lip 모델을 결합하여 AI 아나운서를 만드는 tkiner 기반 GUI 프로그램 입니다.
+### Tacotron2 모델과 wav2lip 모델을 결합하여 AI 아나운서를 만드는 Flask 기반 웹 소스 입니다.
 
-![image](https://user-images.githubusercontent.com/92764800/218385808-da3fa78a-ce24-4374-afad-0c6bfd41ae72.png)
 
 개발 환경
 ---

@@ -6,15 +6,14 @@ from ai_human import *
 
 
 app = Flask(__name__)
-app.secret_key = b'_784DF99!87AF"QPWKERL$@[/'
+# app.secret_key = (secret_key)
 
 try:
-    db = pymysql.connect(host = "192.168.0.3",
-                        port = 3306,
-                        user = "btf",
-                        password = "Rlaxogns123!",
-                        charset = "utf8",
-                        db = "btf")
+    db = pymysql.connect(host = "you host",
+                        port = "you port",
+                        user = "you user",
+                        password = "you pw",
+                        db = "you db name")
 except Exception as e:
     print("DB ERROR")
 

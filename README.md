@@ -1,7 +1,6 @@
 # AINEWROOM WEB VERSION
 ### Tacotron2 모델과 wav2lip 모델을 결합하여 AI 아나운서를 만드는 Flask 기반 웹 소스 입니다.
 
-
 개발 환경
 ---
  - windows 10
